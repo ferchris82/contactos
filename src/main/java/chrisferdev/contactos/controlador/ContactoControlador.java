@@ -50,4 +50,19 @@ public class ContactoControlador {
         modelo.put("contacto", contacto);
         return "editar"; //editar.html 
     }
+
+    @PostMapping("/editar")
+    public String editar(@ModelAttribute("contacto") Contacto contacto){
+        logger.info("Contacto a guardar (editar): " + contacto);
+        contactoServicio.guardarContacto(contacto);
+        return "redirect:/"; //redirigimos al controlador path "/"
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminar(@PathVariable(value = "id")int idContacto){
+        Contacto contacto = new Contacto();
+        contacto.setIdContacto(idContacto);
+        contactoServicio.eliminarContacto(contacto);
+        return "redirect:/"; //redireccionando al path de inicio "/"
+    }
 }
